@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnergyNest | AI-Powered P2P Solar Energy Sharing</title>
+    <meta name="description" content="A decentralized platform connecting solar households to share surplus clean energy with neighbors.">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <!-- Background Elements for Premium Look -->
+    <div class="bg-shape bg-shape-1"></div>
+    <div class="bg-shape bg-shape-2"></div>
+    <div class="bg-shape bg-shape-3"></div>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar glass-panel">
+            <div class="logo">
+                <i data-lucide="zap" class="logo-icon glow"></i>
+                <h1>EnergyNest</h1>
+            </div>
+            <nav class="nav-menu">
+                <button class="nav-btn active" data-tab="dashboard">
+                    <i data-lucide="layout-dashboard"></i> Dashboard
+                </button>
+                <button class="nav-btn" data-tab="map">
+                    <i data-lucide="map"></i> Grid Map
+                </button>
+                <button class="nav-btn" data-tab="trading">
+                    <i data-lucide="arrow-left-right"></i> P2P Trading
+                </button>
+                <button class="nav-btn" data-tab="ai-advisor">
+                    <i data-lucide="bot"></i> AI Advisor
+                </button>
+                <button class="nav-btn" data-tab="about">
+                    <i data-lucide="info"></i> About Project
+                </button>
+            </nav>
+            <div class="user-profile">
+                <div class="avatar">H1</div>
+                <div class="user-info">
+                    <p class="name">House 1</p>
+                    <p class="role seller-badge">Seller</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content glass-panel">
+            
+            <!-- Dashboard Tab -->
+            <section id="dashboard" class="tab-pane active fade-in">
+                <header class="section-header">
+                    <h2>Real-time Dashboard</h2>
+                    <p class="subtitle">Live solar generation, consumption, and sharing stats.</p>
+                </header>
+                
+                <div class="stats-grid">
+                    <div class="stat-card glass-panel-inner hover-lift">
+                        <div class="stat-icon-wrapper text-blue">
+                            <i data-lucide="sun"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Generation</h3>
+                            <p class="stat-value" id="stat-gen">-- kWh</p>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-panel-inner hover-lift">
+                        <div class="stat-icon-wrapper text-orange">
+                            <i data-lucide="home"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Consumption</h3>
+                            <p class="stat-value" id="stat-con">-- kWh</p>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-panel-inner hover-lift">
+                        <div class="stat-icon-wrapper text-green">
+                            <i data-lucide="share-2"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Surplus Shared</h3>
+                            <p class="stat-value" id="stat-share">-- kWh</p>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-panel-inner hover-lift highlight-card">
+                        <div class="stat-icon-wrapper text-yellow">
+                            <i data-lucide="indian-rupee"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Earnings</h3>
+                            <p class="stat-value" id="stat-earn">₹--</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-wrapper glass-panel-inner">
+                        <h3>Solar Forecast (48 Hrs)</h3>
+                        <canvas id="forecastChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Map Tab -->
+            <section id="map" class="tab-pane fade-in">
+                <header class="section-header">
+                    <h2>Neighborhood Energy Map</h2>
+                    <p class="subtitle">Live map showing energy flowing between houses.</p>
+                    
+                    <div class="network-stats-pill">
+                        <span class="pill-item"><i data-lucide="leaf" class="text-green"></i> <span id="net-co2">--</span> kg CO₂ Saved</span>
+                        <span class="pill-item"><i data-lucide="zap" class="text-yellow"></i> <span id="net-kwh">--</span> kWh Shared</span>
+                        <span class="pill-item"><i data-lucide="wallet" class="text-blue"></i> ₹<span id="net-savings">--</span> Saved</span>
+                    </div>
+                </header>
+                <div class="map-container glass-panel-inner" id="svg-map-container">
+                    <!-- SVG will be injected here by map.js -->
+                </div>
+            </section>
+
+            <!-- Trading Tab -->
+            <section id="trading" class="tab-pane fade-in">
+                <header class="section-header">
+                    <h2>P2P Energy Trading</h2>
+                    <p class="subtitle">Buy and sell surplus solar energy automatically.</p>
+                </header>
+                <div class="trading-layout">
+                     <div class="glass-panel-inner list-panel">
+                         <h3>Active Neighbors</h3>
+                         <ul class="neighbor-list" id="neighbor-list">
+                             <li class="empty-state">Loading...</li>
+                         </ul>
+                     </div>
+                     <div class="glass-panel-inner activity-panel">
+                         <h3>Recent Transactions</h3>
+                         <div class="transaction-list" id="transaction-list">
+                             <p class="empty-state">No recent trades.</p>
+                         </div>
+                     </div>
+                </div>
+            </section>
+
+            <!-- AI Advisor Tab -->
+            <section id="ai-advisor" class="tab-pane fade-in">
+                <header class="section-header">
+                    <h2>AI Energy Advisor</h2>
+                    <p class="subtitle">AI-Powered - Ask about your strategy and forecasts.</p>
+                </header>
+                <div class="chat-container glass-panel-inner">
+                    <div class="chat-history" id="chat-history">
+                        <div class="chat-message ai">
+                            <i data-lucide="bot" class="msg-icon"></i>
+                            <div class="msg-bubble">Hello! I'm your EnergyNest Advisor. How can I help optimize your solar distribution today?</div>
+                        </div>
+                    </div>
+                    <form class="chat-input-area" id="chat-form">
+                        <input type="text" id="chat-input" placeholder="Type your message..." required autocomplete="off">
+                        <button type="submit" class="btn-primary" id="chat-submit">
+                            <i data-lucide="send"></i>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- About Tab -->
+            <section id="about" class="tab-pane fade-in">
+                <header class="section-header">
+                    <h2>What is EnergyNest?</h2>
+                    <p class="subtitle">"Sharing Solar. Powering Communities."</p>
+                </header>
+                <div class="about-content">
+                    
+                    <div class="glass-panel-inner about-card">
+                        <h3><i data-lucide="target" class="text-blue"></i> The Problem We Solve</h3>
+                        <p>In India, millions of households with rooftop solar panels generate more electricity than they consume — especially during peak sunlight hours. This surplus energy is either wasted or sold back to the grid at very low rates (₹2–3/unit). Meanwhile, their neighbors pay ₹6–8/unit to the grid for the same electricity.</p>
+                        <p>EnergyNest solves this by creating a neighborhood energy sharing network — solar households sell their surplus directly to nearby homes at fair peer-to-peer rates, everyone saves money, and zero clean energy goes to waste.</p>
+                    </div>
+
+                    <div class="about-grid-3">
+                        <div class="glass-panel-inner text-center hover-lift">
+                            <i data-lucide="sun" class="about-icon text-yellow"></i>
+                            <h4>Zero Waste</h4>
+                            <p class="text-sm">Every kWh generated gets used within the neighborhood</p>
+                        </div>
+                        <div class="glass-panel-inner text-center hover-lift">
+                            <i data-lucide="indian-rupee" class="about-icon text-green"></i>
+                            <h4>Fair Pricing</h4>
+                            <p class="text-sm">Sellers earn more, buyers pay less than grid rates</p>
+                        </div>
+                        <div class="glass-panel-inner text-center hover-lift">
+                            <i data-lucide="bot" class="about-icon text-blue"></i>
+                            <h4>AI Optimized</h4>
+                            <p class="text-sm">Smart matching, forecasting and distribution</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel-inner about-card mt-2">
+                        <h3><i data-lucide="git-merge" class="text-orange"></i> How It Works (5 Simple Steps)</h3>
+                        <ol class="steps-list">
+                            <li><strong>Solar panels generate electricity:</strong> Households with rooftop solar panels generate electricity during daylight hours. A smart meter tracks real-time generation and consumption.</li>
+                            <li><strong>AI detects surplus energy:</strong> Our AI engine continuously monitors every house. When generation exceeds consumption, it flags surplus energy as available for sharing.</li>
+                            <li><strong>Smart matching with deficit households:</strong> The AI automatically matches surplus households with nearby homes that need power, optimizing for distance, price, and quantity.</li>
+                            <li><strong>Energy flows through the local grid:</strong> Electricity is transferred through existing distribution infrastructure. No new wiring needed — just smart software on top of the current grid.</li>
+                            <li><strong>Automatic billing and earnings:</strong> Transactions are recorded automatically. Sellers see earnings in their dashboard, buyers see savings vs grid rate — all transparent and real-time.</li>
+                        </ol>
+                    </div>
+
+                    <div class="glass-panel-inner about-card mt-2">
+                         <h3><i data-lucide="bar-chart" class="text-green"></i> Competitor Comparison</h3>
+                         <div class="table-container">
+                             <table class="comparison-table">
+                                 <thead>
+                                     <tr>
+                                         <th>Feature</th>
+                                         <th>EnergyNest</th>
+                                         <th>Traditional Grid</th>
+                                         <th>Other P2P Apps</th>
+                                     </tr>
+                                 </thead>
+                                 <tbody>
+                                     <tr><td>Energy trading</td><td>✅ Neighbor-to-neighbor</td><td>❌ Grid only</td><td>⚠️ Limited</td></tr>
+                                     <tr><td>AI optimization</td><td>✅ Real-time matching</td><td>❌ None</td><td>❌ None</td></tr>
+                                     <tr><td>Solar forecasting</td><td>✅ 48-hr AI forecast</td><td>❌ None</td><td>⚠️ Basic</td></tr>
+                                     <tr><td>Seller earnings</td><td>✅ ₹8.50/kWh avg</td><td>❌ ₹2–3/kWh only</td><td>⚠️ Varies</td></tr>
+                                     <tr><td>Buyer savings</td><td>✅ 23% below grid</td><td>❌ Full grid rate</td><td>⚠️ Minimal</td></tr>
+                                     <tr><td>CO₂ tracking</td><td>✅ Live per household</td><td>❌ None</td><td>❌ None</td></tr>
+                                     <tr><td>India-focused</td><td>✅ Built for Tamil Nadu</td><td>⚠️ Generic</td><td>❌ Western markets</td></tr>
+                                     <tr><td>AI chat advisor</td><td>✅ Ask anything</td><td>❌ None</td><td>❌ None</td></tr>
+                                 </tbody>
+                             </table>
+                         </div>
+                    </div>
+
+                    <div class="glass-panel-inner about-card mt-2 mb-2 bg-gradient">
+                         <h3><i data-lucide="code" class="text-blue"></i> Technology Stack</h3>
+                         <p><strong>Frontend:</strong> HTML5 · CSS3 · Vanilla JS · Chart.js<br>
+                         <strong>Backend:</strong> Node.js · Express.js · REST API<br>
+                         <strong>AI Engine:</strong> Proprietary AI · Real-time energy advisor<br>
+                         <strong>Visualization:</strong> SVG animations · Chart.js · Live maps</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="/js/app.js"></script>
+    <script src="/js/dashboard.js"></script>
+    <script src="/js/map.js"></script>
+    <script src="/js/ai-advisor.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
