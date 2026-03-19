@@ -37,6 +37,11 @@ app.get('/', (req, res) => {
 });
 
 // Start Server
-app.listen(PORT, () => {
-    console.log(`⚡ EnergyNest server running on http://localhost:${PORT}`);
-});
+if (!process.env.VERCEL) {
+    app.listen(PORT, () => {
+        console.log(`⚡ EnergyNest server running on http://localhost:${PORT}`);
+    });
+}
+
+// Export the Express API for Vercel
+module.exports = app;
