@@ -644,4 +644,9 @@ h1, h2, h3, h4 { font-family: var(--font-heading); }
         gap: 0.5rem;
         border-radius: 1rem;
     }
+
+    /* Fix mobile contrast: Dim the massive animated background blobs */
+    .bg-shape {
+        opacity: 0.1;
+    }
 }
